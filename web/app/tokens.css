@@ -1,9 +1,11 @@
 /* ==========================================================================
-   Rivet Industrial Design System — Core Design Tokens
+   Rivet Industrial Design System — Core Design Tokens & Color Schemes
    Engineered for heavy equipment service, telemetry, and high-precision audit.
+   Supports Light & Dark Modes with smooth transition aesthetics.
    ========================================================================== */
 
-:root {
+:root,
+[data-theme="light"] {
   /* Brand Core */
   --brand: #111614;
   --brand-hover: #080c0a;
@@ -13,6 +15,8 @@
   --brand-accent-border: rgba(200, 76, 28, 0.25);
   --brand-accent-glow: rgba(200, 76, 28, 0.15);
   --brand-on-dark: #f0f4f1;
+  --primary: var(--brand);
+  --on-primary: #ffffff;
 
   /* Machinery Dark Graphite Palette */
   --graphite-950: #0a0e0c;
@@ -103,7 +107,7 @@
   --radius-pill: 9999px;
   --radius-full: 9999px;
 
-  --radius-button: 8px; /* High-craft architectural rounded button */
+  --radius-button: 8px;
   --radius-card: 10px;
   --radius-input: 6px;
   --radius-badge: 9999px;
@@ -115,12 +119,111 @@
   --shadow-glow: 0 0 20px rgba(200, 76, 28, 0.25);
 }
 
-/* The field app, billing panel, map and status chip were written against the earlier palette.
-   These aliases map its names onto the current tokens so they follow the design system. */
+/* ==========================================================================
+   Dark Mode Industrial Palette (Machinery Slate & Burnt Ember)
+   ========================================================================== */
+[data-theme="dark"] {
+  /* Brand Core */
+  --brand: #e86330;
+  --brand-hover: #f07342;
+  --brand-accent: #e86330; /* Luminous Ember */
+  --brand-accent-hover: #f57b4c;
+  --brand-accent-light: rgba(232, 99, 48, 0.16);
+  --brand-accent-border: rgba(232, 99, 48, 0.35);
+  --brand-accent-glow: rgba(232, 99, 48, 0.28);
+  --brand-on-dark: #f4f8f5;
+  --primary: var(--brand-accent);
+  --on-primary: #ffffff;
+
+  /* Canvas & Dark Surfaces */
+  --canvas: #0c110e; /* Deep titanium charcoal */
+  --bg: #0c110e;
+  --surface: #141a17; /* Refined dark panel surface */
+  --surface-sunken: #0f1412; /* Deep tray background */
+  --surface-elevated: #1a221e; /* Elevated popovers and active rows */
+  --soft-stone: #1a231f;
+
+  /* Ink & High-Contrast Typography */
+  --ink: #f0f4f1; /* Crisp white-sage text */
+  --ink-primary: #f0f4f1;
+  --ink-2: #9cb2a5; /* High-clarity secondary telemetry */
+  --ink-3: #6b8275; /* Telemetry label muted */
+  --ink-muted: #9cb2a5;
+  --subtle: #6b8275;
+  --text: #f0f4f1;
+  --muted: #9cb2a5;
+
+  /* Structural Hairlines */
+  --line: #222e27;
+  --line-subtle: #19231d;
+  --line-control: #2c3c33;
+  --line-dark: rgba(255, 255, 255, 0.12);
+  --border: #222e27;
+  --border-light: #19231d;
+
+  /* Signal & Status Tokens */
+  --positive: #34d399;
+  --positive-surface: rgba(52, 211, 153, 0.14);
+  --positive-border: rgba(52, 211, 153, 0.32);
+  --green: #34d399;
+
+  --warning: #fbbf24;
+  --warning-surface: rgba(251, 191, 36, 0.14);
+  --warning-border: rgba(251, 191, 36, 0.32);
+
+  --critical: #f87171;
+  --critical-surface: rgba(248, 113, 113, 0.14);
+  --critical-border: rgba(248, 113, 113, 0.32);
+  --red: #f87171;
+
+  --action-blue: #60a5fa;
+  --focus-blue: #93c5fd;
+  --pale-blue: rgba(96, 165, 250, 0.14);
+
+  /* Hero Display */
+  --hero-bg: #070a08;
+  --hero-title-color: #ffffff;
+  --hero-accent: #f07342;
+  --hero-cta-bg: #e86330;
+  --hero-cta-color: #ffffff;
+
+  /* Shadows for Dark Mode */
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.35), 0 1px 2px rgba(0, 0, 0, 0.25);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.55), 0 1px 4px rgba(0, 0, 0, 0.35);
+  --shadow-lg: 0 12px 36px rgba(0, 0, 0, 0.75), 0 2px 8px rgba(0, 0, 0, 0.45);
+  --shadow-glow: 0 0 24px rgba(232, 99, 48, 0.35);
+}
+
+/* Backward compatibility token mappings */
 :root,
 [data-theme] {
   --panel: var(--surface);
   --panel-alt: var(--surface-sunken);
   --accent: var(--brand-accent);
   --blue: var(--ink-2);
+}
+
+/* ==========================================================================
+   Smooth Theme Transitions & View Transitions Animation
+   ========================================================================== */
+
+html.theme-transition,
+html.theme-transition *,
+html.theme-transition *::before,
+html.theme-transition *::after {
+  transition: background-color 0.4s cubic-bezier(0.25, 1, 0.5, 1),
+              background 0.4s cubic-bezier(0.25, 1, 0.5, 1),
+              color 0.4s cubic-bezier(0.25, 1, 0.5, 1),
+              border-color 0.4s cubic-bezier(0.25, 1, 0.5, 1),
+              box-shadow 0.4s cubic-bezier(0.25, 1, 0.5, 1),
+              outline-color 0.4s cubic-bezier(0.25, 1, 0.5, 1),
+              fill 0.4s cubic-bezier(0.25, 1, 0.5, 1),
+              stroke 0.4s cubic-bezier(0.25, 1, 0.5, 1) !important;
+  transition-delay: 0s !important;
+}
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 0.35s;
+  animation-timing-function: cubic-bezier(0.25, 1, 0.5, 1);
 }

@@ -7,6 +7,7 @@ import { Menu, X, Radio } from 'lucide-react';
 import { SessionBar } from '@/components/session-bar';
 import { Navigation } from '@/components/navigation';
 import { Logo } from '@/components/logo';
+import { ThemeToggle } from '@/components/theme-toggle';
 import { useSummary } from '@/lib/use-summary';
 import s from './shell.module.css';
 
@@ -72,6 +73,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
               <span className={s.liveDot} />
               <span>LIVE TELEMETRY</span>
             </div>
+            <ThemeToggle />
             <SessionBar />
           </div>
         </header>

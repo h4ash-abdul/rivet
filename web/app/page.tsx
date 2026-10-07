@@ -5,6 +5,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { ArrowUpRight, ArrowRight, ArrowDown, Check, Search, LayoutDashboard, RefreshCw, ShieldCheck, Wrench, PackageCheck, Zap } from 'lucide-react';
 import { SessionBar } from '@/components/session-bar';
 import { Logo } from '@/components/logo';
+import { ThemeToggle } from '@/components/theme-toggle';
 import { api, useSession } from '@/lib/api';
 import s from './landing.module.css';
 
@@ -396,6 +397,7 @@ export default function Landing() {
           <Link href="/verify">Records Verification</Link>
         </nav>
         <div className={s.navActions}>
+          <ThemeToggle />
           <SessionBar />
           <Link href="/control" passHref>
             <Button variant="primary" className={s.navWorkspaceButton}>

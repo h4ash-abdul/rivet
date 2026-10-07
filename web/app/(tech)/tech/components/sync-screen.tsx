@@ -47,7 +47,7 @@ export function SyncScreen({
       className="panel"
       style={{
         fontFamily: 'var(--mono)',
-        background: '#fbfaf6',
+        background: 'var(--panel)',
         border: '1px solid var(--border)',
         padding: '24px',
         maxWidth: '560px',

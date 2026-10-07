@@ -51,11 +51,11 @@ export function ConflictScreen({
       className="panel"
       style={{
         borderLeft: '4px solid var(--accent)',
-        background: '#fffdfa',
+        background: 'var(--panel)',
         padding: '24px',
         maxWidth: '580px',
         margin: '0 auto 20px',
-        boxShadow: '0 4px 16px rgba(0,0,0,0.06)',
+        boxShadow: 'var(--shadow-sm)',
       }}
     >
       {/* 1. JOB_REASSIGNED SCREEN */}
@@ -169,7 +169,7 @@ export function ConflictScreen({
           <p style={{ fontSize: '14px', color: 'var(--text)', fontWeight: 500, margin: '0 0 10px' }}>
             Checklist with the gaps highlighted:
           </p>
-          <div style={{ background: '#fff0ee', border: '1px solid #f8d7da', padding: '14px', borderRadius: '3px', marginBottom: '16px' }}>
+          <div style={{ background: 'var(--critical-surface)', border: '1px solid var(--critical-border)', padding: '14px', borderRadius: '3px', marginBottom: '16px' }}>
             <div style={{ fontSize: '12px', fontWeight: 600, color: 'var(--red)', marginBottom: '8px' }}>
               MANDATORY PROOFS REQUIRED BEFORE ACCEPTANCE:
             </div>
