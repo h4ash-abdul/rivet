@@ -37,11 +37,8 @@ export function ThemeToggle({ className, showLabel = true }: { className?: strin
     return () => window.removeEventListener('storage', handleStorage);
   }, []);
 
-  const triggerTransition = useCallback((nextTheme: ThemeMode) => {
-    // Add smooth transition class to document root
+  const triggerTransition = useCallback((nextTheme: ThemeMode, x: number, y: number) => {
     const root = document.documentElement;
-    root.classList.add('theme-transition');
-
     const updateDOM = () => {
       root.setAttribute('data-theme', nextTheme);
       document.body?.setAttribute('data-theme', nextTheme);
@@ -51,31 +48,48 @@ export function ThemeToggle({ className, showLabel = true }: { className?: strin
       window.dispatchEvent(new CustomEvent('rivet:theme-change', { detail: { theme: nextTheme } }));
     };
 
-    // Use View Transitions API if supported for fluid visual blend
     if ('startViewTransition' in document && typeof (document as any).startViewTransition === 'function') {
+      const radius = Math.hypot(
+        Math.max(x, window.innerWidth - x),
+        Math.max(y, window.innerHeight - y)
+      );
+
+      root.style.setProperty('--toggle-x', `${x}px`);
+      root.style.setProperty('--toggle-y', `${y}px`);
+      root.style.setProperty('--toggle-radius', `${radius}px`);
+
       (document as any).startViewTransition(() => {
         updateDOM();
       });
     } else {
+      // Fallback for browsers without View Transitions API
+      root.classList.add('theme-transition');
       updateDOM();
+      setTimeout(() => {
+        root.classList.remove('theme-transition');
+      }, 450);
     }
-
-    // Clean up transition class after animation completes
-    setTimeout(() => {
-      root.classList.remove('theme-transition');
-    }, 450);
   }, []);
 
-  const toggleTheme = () => {
+  const toggleTheme = (e?: React.MouseEvent | React.KeyboardEvent) => {
     const nextTheme: ThemeMode = theme === 'dark' ? 'light' : 'dark';
+    
+    let x = window.innerWidth / 2;
+    let y = window.innerHeight / 2;
+    
+    if (e && 'clientX' in e) {
+      x = (e as React.MouseEvent).clientX;
+      y = (e as React.MouseEvent).clientY;
+    }
+
     setTheme(nextTheme);
-    triggerTransition(nextTheme);
+    triggerTransition(nextTheme, x, y);
   };
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === ' ' || e.key === 'Enter') {
       e.preventDefault();
-      toggleTheme();
+      toggleTheme(e);
     }
   };
 

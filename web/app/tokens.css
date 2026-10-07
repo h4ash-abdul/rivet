@@ -207,6 +207,7 @@
    Smooth Theme Transitions & View Transitions Animation
    ========================================================================== */
 
+/* Fallback transition for browsers that don't support View Transitions API */
 html.theme-transition,
 html.theme-transition *,
 html.theme-transition *::before,
@@ -222,8 +223,27 @@ html.theme-transition *::after {
   transition-delay: 0s !important;
 }
 
+/* Remove generic theme-transition block that interferes with View Transitions API */
 ::view-transition-old(root),
 ::view-transition-new(root) {
-  animation-duration: 0.35s;
-  animation-timing-function: cubic-bezier(0.25, 1, 0.5, 1);
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+::view-transition-old(root) {
+  z-index: 1;
+}
+
+::view-transition-new(root) {
+  z-index: 9999;
+  animation: theme-wipe 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+@keyframes theme-wipe {
+  from {
+    clip-path: circle(0px at var(--toggle-x, 50%) var(--toggle-y, 50%));
+  }
+  to {
+    clip-path: circle(var(--toggle-radius, 100vw) at var(--toggle-x, 50%) var(--toggle-y, 50%));
+  }
 }
